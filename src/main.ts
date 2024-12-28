@@ -4,31 +4,19 @@ const $sendButton = document.querySelector(".run")
 const $globalCode = document.querySelector<HTMLTextAreaElement>("#global")
 
 async function runTest({ code, data }) {
-  let duration = 1000
-  let result = 0
-  try {
-    result = eval(`
-      (async () => {
-        let PERF__ops = 0
-        const PERF__start = performance.now()
-        const PERF__end = performance.now() + duration
-
-        ${data}
-
-        while(performance.now() < PERF__end) {
-          ${code}
-          PERF__ops++
-        }
-
-        return PERF__ops
-      })()
-    `)
-  }
-  catch( error ) {
-    result = 0
+  const worker = new Worker("src/worker.js")
+  
+  worker.postMessage({ code, data })
+  worker.onerror = error => {
+    console.log("error:", error)
   }
 
-  return result
+  return new Promise((resolve, reject) => {
+    worker.onmessage = (event) => {
+      const result = event.data
+      resolve(result)
+    }
+  })
 }
 
 function runTestCases() {
@@ -44,7 +32,6 @@ function runTestCases() {
     
     const result = await runTest({ code: codeValue, data: globalCode })
     $ops.textContent = `${result} ops/s`
-    console.log(result)
   })
 }
 
