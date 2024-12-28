@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comparative Performance JS</title>
+  </head>
+  <body>
+    <div id="app">
+      <main class="container">
+        <h2>Global</h2>
+        <textarea id="global" class="code" rows="1">const data = [...Array(1000).keys()]</textarea>
+
+        <h2>Test Cases</h2>
+        <div class="test-cases">
+          <article class="test-case">
+            <header>
+              <span class="test-id">1</span>
+              <span class="ops">140,306 ops/s</span>
+            </header>
+
+            <textarea class="code" rows="1">data.find(x => x == 200)</textarea>
+          </article>
+        </div>
+
+        <div class="test-cases">
+          <article class="test-case">
+            <header>
+              <span class="test-id">2</span>
+              <span class="ops">250,306 ops/s</span>
+            </header>
+
+            <textarea class="code" rows="1">data.find(x => x == 200)</textarea>
+          </article>
+        </div>
+
+        <button class="run">Benchmark Code</button>
+      </main>
+
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
