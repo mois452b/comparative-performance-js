@@ -97,3 +97,27 @@ body {
   }
 
 }
+
+.bars {
+  display: flex;
+  height: 300px;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  justify-content: space-around;
+  align-items: end;
+  margin: 8px 0;
+
+  .bar {
+    width: 2px;
+    transition: height 1s ease-in-out;
+    background-color: #4d4d4d;
+  }
+}
+
+.percentages {
+  display: flex;
+  justify-content: space-around;
+  font-size: 12px;
+  opacity: 0.5;
+}
